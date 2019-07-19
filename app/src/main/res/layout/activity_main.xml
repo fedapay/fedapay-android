@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Montant total du panier"
+        android:textSize="24dp"
+        android:gravity="center"/>
+    <TextView
+        android:id="@+id/mount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="10 FCFA"
+        android:textSize="24dp"
+        android:gravity="center"
+        android:layout_marginTop="20dp"/>
+    <Button
+        android:id="@+id/payer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="PAYER"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:layout_marginTop="20dp"
+        />
+
+</LinearLayout>
