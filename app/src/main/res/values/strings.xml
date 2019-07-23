@@ -1,8 +1,3 @@
 <resources>
-    <string name="app_name">fedapay</string>
-    <string-array name="operator_arrays">
-        <item>Choisissez votre opérateur</item>
-        <item>MTN</item>
-        <item>MOOV</item>
-    </string-array>
+    <string name="app_name">Feda Pay</string>
 </resources>

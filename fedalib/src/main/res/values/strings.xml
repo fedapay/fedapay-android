@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Fedapay Library</string>
+    <string name="start_transaction">Fedapay Library</string>
+    <string-array name="operator_arrays">
+        <item>Choisissez votre opérateur</item>
+        <item>MTN</item>
+        <item>MOOV</item>
+    </string-array>
+    <string name="trans_in_process">Transaction en cours</string>
+    <string name="trans_fail">Echec de la transaction</string>
+    <string name="trans_ok">Transaction Effectuee</string>
+    <string name="title_activity_main">MainActivity</string>
+</resources>

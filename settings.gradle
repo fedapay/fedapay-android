@@ -1,1 +1,1 @@
-include ':app', ':fedapaylib'
+include ':app', ':fedalib'
