@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.fedapay.fedalib">
 
-    <application></application>
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application>
+        <activity android:name=".FedaPMT" android:label="PAYEMENT"></activity>
+    </application>
 
 </manifest>

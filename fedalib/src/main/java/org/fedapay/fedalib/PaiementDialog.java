@@ -4,10 +4,8 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
@@ -16,33 +14,48 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import org.fedapay.fedalib.Listenners.OnRequestLoadListener;
+import org.fedapay.fedalib.Models.PhoneNumber;
+import org.fedapay.fedalib.Models.Requests.MakePaiement;
+import org.fedapay.fedalib.Models.Responses.TokenResponse;
+import org.fedapay.fedalib.Models.Transaction;
+import org.fedapay.fedalib.Utils.Constants;
 
-public class PaiementDialog extends DialogFragment {
+import static android.view.View.VISIBLE;
+import static org.fedapay.fedalib.FedaPay.SetTransationOkView;
+
+
+public class PaiementDialog extends DialogFragment implements OnRequestLoadListener {
 
     public static final String TAG = "paiement";
-
-    private Toolbar toolbar;
+    static String fedaApiKey;
+    static Transaction fedaPayTransaction;
     View view;
+    Context context;
+    FedaPay fedaPay;
+    MakePaiement makePaiementRequest;
+    String mode, phone, country, transactionToken;
+    private Toolbar toolbar;
     private Spinner mOperator;
     private EditText mCountryCode;
     private EditText mPhoneNumber;
     private Button mStartPaiement;
-    Context context;
+    private ProgressDialog progressDialog;
 
-    public static PaiementDialog display(FragmentManager fragmentManager) {
+    public static PaiementDialog display(FragmentManager fragmentManager, String token, Transaction transaction) {
         PaiementDialog paiementDialog = new PaiementDialog();
         paiementDialog.show(fragmentManager, TAG);
+        fedaApiKey = token;
+        fedaPayTransaction = transaction;
         return paiementDialog;
     }
-    private  ProgressDialog progressDialog;
 
-
-
-    protected  void showProgressDialog(String msg) {
+    protected void showProgressDialog(String msg) {
         try {
             if (progressDialog != null && !progressDialog.isShowing()) {
                 progressDialog.setMessage(msg);
@@ -53,7 +66,7 @@ public class PaiementDialog extends DialogFragment {
         }
     }
 
-    protected  void hideProgressDialog() {
+    protected void hideProgressDialog() {
         try {
             if (progressDialog != null && progressDialog.isShowing()) {
                 progressDialog.dismiss();
@@ -62,6 +75,7 @@ public class PaiementDialog extends DialogFragment {
             e.printStackTrace();
         }
     }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,12 +87,25 @@ public class PaiementDialog extends DialogFragment {
         super.onStart();
         Dialog dialog = getDialog();
         context = getContext();
+        fedaPay = new FedaPay(context);
+        getPaiementToken();
+
         if (dialog != null) {
             int width = ViewGroup.LayoutParams.MATCH_PARENT;
             int height = ViewGroup.LayoutParams.MATCH_PARENT;
             dialog.getWindow().setLayout(width, height);
             dialog.getWindow().setWindowAnimations(R.style.AppTheme_Slide);
         }
+    }
+
+    private void getPaiementToken() {
+        showProgressDialog("Patientez...");
+        fedaPay.getPaiementToken(fedaApiKey, this, fedaPayTransaction.getId());
+    }
+
+    private void Paiement(MakePaiement makePaiementRqst, String md) {
+        FedaPay.showLocationDialog(context, fedaApiKey, md, this, makePaiementRqst);
+
     }
 
     @Override
@@ -124,16 +151,84 @@ public class PaiementDialog extends DialogFragment {
         clickListenner();
     }
 
-    public void clickListenner(){
+    public void clickListenner() {
+        mOperator.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+
+                mode = "" + adapterView.getItemAtPosition(position);
+                mode = mode.toLowerCase();
+                //Toast.makeText(adapterView.getContext(), "OnItemSelectedListener : " + mode , Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
         mStartPaiement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                makePaiementRequest = new MakePaiement();
                 showProgressDialog("Payement en cours...");
                 //FedaPay.welcome(context, "Bienvenue Chez Feda PAY");
-                FedaPay.showLocationDialog(context);
+
+                country = "bj";
+                phone = mPhoneNumber.getText().toString();
+
+                makePaiementRequest.setMode(mode);
+                makePaiementRequest.setToken(transactionToken);
+                PhoneNumber phoneNumber = new PhoneNumber();
+                phoneNumber.setNumber(phone);
+                phoneNumber.setCountry(country);
+
+                makePaiementRequest.setPhone_number(phoneNumber);
+
+                Paiement(makePaiementRequest, mode);
 
 
             }
         });
+    }
+
+    @Override
+    public void onTransactionCreated(Transaction items) {
+
+    }
+
+    @Override
+    public void onPaiementMaked(Transaction items) {
+
+        final View v = LayoutInflater.from(context).inflate(R.layout.di, null);
+        SetTransationOkView(v, R.drawable.ok, R.string.trans_ok);
+        v.findViewById(R.id.ok).setVisibility(VISIBLE);
+    }
+
+    @Override
+    public void onGetTransactionStatus(Transaction items) {
+
+    }
+
+    @Override
+    public void onTokenCreated(TokenResponse items) {
+
+        transactionToken = items.getToken();
+    }
+
+    @Override
+    public void onSuccess(String msg) {
+
+    }
+
+    @Override
+    public void onError(Constants.Errors errorCode, String error) {
+
+    }
+
+    @Override
+    public void onTransactionError(Constants.Errors errorCode, String error) {
+        final View v = LayoutInflater.from(context).inflate(R.layout.di, null);
+        SetTransationOkView(v, R.drawable.faild, R.string.trans_fail);
+        v.findViewById(R.id.ok).setVisibility(VISIBLE);
     }
 }

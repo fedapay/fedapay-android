@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Feda Pay</string>
+    <string name="FEDAPAY_API_KEY">sk_sandbox_y2n8mkny9zyIBKX3hwsnxy5S</string>
 </resources>

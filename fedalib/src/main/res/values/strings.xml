@@ -6,8 +6,10 @@
         <item>MTN</item>
         <item>MOOV</item>
     </string-array>
+    <string name="API_KEY">Transaction en cours</string>
     <string name="trans_in_process">Transaction en cours</string>
     <string name="trans_fail">Echec de la transaction</string>
     <string name="trans_ok">Transaction Effectuee</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="titlen">PAIEMENT</string>
 </resources>
