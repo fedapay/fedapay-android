@@ -5,8 +5,10 @@ public class Constants {
     public static final String TRANSACTION_DATA = "transaction_data";
     public static final String FEDA_SP_KEY = "feda_sp_key";
     public static final String FEDA_TRANSACTION_PENDDING = "pendding";
-    public static final String FEDA_TRANSACTION_SUCCESS = "success";
+    public static final String FEDA_TRANSACTION_APPROVED = "approved";
     public static final String FEDA_TRANSACTION_CANCELED = "canceled";
+    public static final String FEDA_PRIMARY_COLOR = "#2a1454";
+    public static final String FEDA_ACCENT_COLOR = "#48b154";
     public static final int MTN_MOMO = 1;
     public static final int MOOV_MOMO = 2;
     public static final int VISA = 3;

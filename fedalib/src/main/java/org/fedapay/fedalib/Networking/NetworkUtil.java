@@ -61,20 +61,6 @@ public class NetworkUtil {
 
         // TODO - add no internet connection interceptor
 
-//        httpClient.addInterceptor(chain -> {
-//            Request original = chain.request();
-//            Request.Builder requestBuilder = original.newBuilder()
-//                    .addHeader("Accept", "application/json");
-//
-//            // adding auth token
-//            if (!TextUtils.isEmpty(accessToken)) {
-//            requestBuilder.addHeader("Authorization", "Bearer " + accessToken);
-//            }
-//
-//            Request request = requestBuilder.build();
-//            return chain.proceed(request);
-//        });
-
         httpClient.addInterceptor(new Interceptor() {
             @Override
             public okhttp3.Response intercept(Chain chain) throws IOException {

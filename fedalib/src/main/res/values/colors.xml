@@ -4,4 +4,9 @@
     <color name="colorPrimaryDark">#2a1454</color>
     <color name="colorAccent">#48b154</color>
     <color name="grey">#F3F3F3</color>
+
+
+    <color name="fedapayUiPrimaryColor">@color/colorPrimary</color>
+    <color name="fedapayUiSecondaryColor">@color/colorAccent</color>
+
 </resources>

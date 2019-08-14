@@ -14,7 +14,6 @@ import android.widget.Toast;
 import org.fedapay.fedalib.Listenners.OnRequestLoadListener;
 import org.fedapay.fedalib.Models.Requests.GetTransactionStatus;
 import org.fedapay.fedalib.Models.Requests.MakePaiement;
-import org.fedapay.fedalib.Models.Requests.StartTransaction;
 import org.fedapay.fedalib.Networking.NetworkUtil;
 
 public class FedaPay extends RelativeLayout {
@@ -62,16 +61,6 @@ public class FedaPay extends RelativeLayout {
 
         FedaPay.makePaiement(token, mode, listener, makePaiementRequest);
 
-        /*final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                SetTransationOkView(view, R.drawable.ok, R.string.trans_ok);
-                view.findViewById(R.id.ok).setVisibility(VISIBLE);
-
-            }
-        }, SPLASH_DISPLAY_LENGTH);*/
-
         final AlertDialog dialog = builder.create();
         dialog.show();
 
@@ -85,9 +74,7 @@ public class FedaPay extends RelativeLayout {
 
     }
 
-    public static void createTransaction(String token, OnRequestLoadListener listener, StartTransaction startTransaction) {
-        NetworkUtil.createFedApi(token).newTransaction(startTransaction).enqueue(NetworkUtil.newTransactionCallBack(listener));
-    }
+
 
     public static void makePaiement(String token, String mode, OnRequestLoadListener listener, MakePaiement makePaiementRequest) {
         NetworkUtil.createFedApi(token).newPaiement(makePaiementRequest, mode).enqueue(NetworkUtil.paiementCallBack(listener));

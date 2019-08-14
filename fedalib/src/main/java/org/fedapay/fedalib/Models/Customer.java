@@ -4,7 +4,10 @@ import com.google.gson.annotations.SerializedName;
 
 
 public class Customer {
-
+    public Customer create(String id) {
+        this.id = id;
+        return this;
+    }
 
     @SerializedName("id")
     String id;

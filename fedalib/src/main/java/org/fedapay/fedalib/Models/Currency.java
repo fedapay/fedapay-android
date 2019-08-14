@@ -5,6 +5,17 @@ import com.google.gson.annotations.SerializedName;
 
 public class Currency {
 
+    public Currency create(String id, String name, String iso, String code, String prefix, String suffix, String div) {
+        this.id = id;
+        this.name = name;
+        this.iso = iso;
+        this.code = code;
+        this.prefix = prefix;
+        this.suffix = suffix;
+        this.div = div;
+
+        return this;
+    }
 
     @SerializedName("id")
     String id;
@@ -82,4 +93,7 @@ public class Currency {
     public void setDiv(String div) {
         this.div = div;
     }
+
+
+
 }

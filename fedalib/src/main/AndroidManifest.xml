@@ -5,7 +5,10 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application>
-        <activity android:name=".FedaPMT" android:label="PAYEMENT"></activity>
+        <activity
+            android:name=".FedaPMT"
+            android:label="PAYEMENT"
+            android:theme="@style/FedaUIStyle"></activity>
     </application>
 
 </manifest>

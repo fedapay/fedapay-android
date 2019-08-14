@@ -2,10 +2,18 @@ package org.fedapay.fedalib.Models;
 
 import com.google.gson.annotations.SerializedName;
 
+import org.fedapay.fedalib.Listenners.OnRequestLoadListener;
+import org.fedapay.fedalib.Models.Requests.NewTransactionObject;
+import org.fedapay.fedalib.Networking.NetworkUtil;
+
 import java.io.Serializable;
 
 
 public class Transaction implements Serializable {
+
+    public Transaction() {
+
+    }
 
     @SerializedName("klass")
     String klass;
@@ -270,4 +278,10 @@ public class Transaction implements Serializable {
     public void setDeleted_at(String deleted_at) {
         this.deleted_at = deleted_at;
     }
+
+    public static void create(String token, OnRequestLoadListener listener, NewTransactionObject newTransactionObject) {
+        NetworkUtil.createFedApi(token).newTransaction(newTransactionObject).enqueue(NetworkUtil.newTransactionCallBack(listener));
+    }
+
+
 }

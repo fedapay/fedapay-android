@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 import org.fedapay.fedalib.Models.Currency;
 import org.fedapay.fedalib.Models.Customer;
 
-public class StartTransaction {
+public class NewTransactionObject {
 
     @SerializedName("description")
     @Expose
@@ -54,5 +54,13 @@ public class StartTransaction {
 
     public void setCurrency(Currency currency) {
         this.currency = currency;
+    }
+
+    public NewTransactionObject setData(String amount, String description, Customer customer, Currency currency) {
+        this.description = description;
+        this.amount = amount;
+        this.customer = customer;
+        this.currency = currency;
+        return this;
     }
 }

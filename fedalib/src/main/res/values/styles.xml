@@ -33,4 +33,10 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="FedaUIStyle" parent="AppTheme" >
+        <item name="colorPrimary">@color/fedapayUiPrimaryColor</item>
+        <item name="colorPrimaryDark">@color/fedapayUiPrimaryColor</item>
+        <item name="colorAccent">@color/fedapayUiSecondaryColor</item>
+    </style>
+
 </resources>

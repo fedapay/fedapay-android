@@ -25,9 +25,9 @@ import org.fedapay.fedalib.Utils.Constants;
 import org.fedapay.fedalib.Utils.FedaBaseActivity;
 
 import static android.view.View.VISIBLE;
+import static org.fedapay.fedalib.Utils.Constants.FEDA_TRANSACTION_APPROVED;
 import static org.fedapay.fedalib.Utils.Constants.FEDA_TRANSACTION_CANCELED;
 import static org.fedapay.fedalib.Utils.Constants.FEDA_TRANSACTION_PENDDING;
-import static org.fedapay.fedalib.Utils.Constants.FEDA_TRANSACTION_SUCCESS;
 
 public class FedaPMT extends FedaBaseActivity implements View.OnClickListener, OnRequestLoadListener {
 
@@ -73,7 +73,6 @@ public class FedaPMT extends FedaBaseActivity implements View.OnClickListener, O
         mCountryCode = (EditText) findViewById(R.id.countryCode);
         mPhoneNumber = (EditText) findViewById(R.id.phoneNumber);
         mStartPaiement = (Button) findViewById(R.id.startPaiement);
-        //mStartPaiement.setOnClickListener(this);
     }
 
     public void clickListenner() {
@@ -120,7 +119,7 @@ public class FedaPMT extends FedaBaseActivity implements View.OnClickListener, O
             getPaiementToken();
 
         } else {
-            // Nous devons envoyer un message d'erreur
+
         }
     }
 
@@ -234,9 +233,9 @@ public class FedaPMT extends FedaBaseActivity implements View.OnClickListener, O
         if (items.getStatus().equals(FEDA_TRANSACTION_PENDDING)) {
             showDialog(this, R.drawable.load, R.string.trans_in_process, false, "");
         }
-        if (items.getStatus().equals(FEDA_TRANSACTION_SUCCESS)) {
+        if (items.getStatus().equals(FEDA_TRANSACTION_APPROVED)) {
             showDialog(this, R.drawable.ok, R.string.trans_ok, true, items.getStatus());
-            backToApp(items.getStatus());
+            //backToApp(items.getStatus());
         }
         if (items.getStatus().equals(FEDA_TRANSACTION_CANCELED)) {
 
